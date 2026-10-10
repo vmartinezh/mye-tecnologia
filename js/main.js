@@ -64,6 +64,9 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll(".unit[data-cat]").forEach(function (u) {
       u.classList.toggle("is-on", selected.indexOf(u.dataset.cat) !== -1);
     });
+    document.querySelectorAll("#plateLinks [data-cat]").forEach(function (led) {
+      led.classList.toggle("is-on", selected.indexOf(led.dataset.cat) !== -1);
+    });
     catChecks.querySelectorAll(".catChip").forEach(function (c) {
       c.setAttribute("aria-pressed", String(selected.indexOf(c.dataset.cat) !== -1));
     });
@@ -269,6 +272,19 @@ document.addEventListener("DOMContentLoaded", function () {
     navLinks.forEach(function (link) {
       var s = document.getElementById(link.getAttribute("href").slice(1));
       if (s) observer.observe(s);
+    });
+  }
+
+  /* ---------- Carrusel de marcas ---------- */
+
+  var brandPause = document.getElementById("brandPause");
+  if (brandPause) {
+    brandPause.addEventListener("click", function () {
+      var paused = brandPause.getAttribute("aria-pressed") !== "true";
+      brandPause.setAttribute("aria-pressed", String(paused));
+      brandPause.setAttribute("aria-label", paused ? "Reanudar carrusel de marcas" : "Pausar carrusel de marcas");
+      brandPause.querySelector("use").setAttribute("href", paused ? "#i-play" : "#i-pause");
+      brandPause.closest(".brands").classList.toggle("is-paused", paused);
     });
   }
 

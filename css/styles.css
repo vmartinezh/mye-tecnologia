@@ -38,6 +38,16 @@
   --c-impresion: #0F9DB0;
   --c-me: var(--violet);
 
+  /* placa de marca: aluminio anodizado negro con el logo retroiluminado */
+  --plate: #1D2026;
+  --plate-hi: #3A3E48;
+  --plate-lo: #0B0C0F;
+  --plate-silk: #A3A8B1;
+  --plate-text: #B8BCC5;
+  --plate-led-off: #3B3F48;
+  --violet-lit: #7C55EC;
+  --screw-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14'%3E%3Ccircle cx='7' cy='7' r='5.6' fill='%232E323A' stroke='%23474C56'/%3E%3Cpath d='M4.4 7h5.2M7 4.4v5.2' stroke='%235C616C' stroke-width='1.4' stroke-linecap='round'/%3E%3C/svg%3E");
+
   --u: 48px;
   --rail-w: 26px;
   --pad: 56px;
@@ -200,7 +210,7 @@ ul, ol { padding: 0; list-style: none; }
   padding: 0 var(--pad);
 }
 .brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; }
-.brandMark { width: 34px; height: 34px; color: var(--violet); }
+.brandMark { width: 36px; height: 35px; color: var(--violet); --mark-core-op: .32; }
 .brandName { font: 800 1.3rem/1 var(--display); letter-spacing: -.01em; }
 .brandName span { font-weight: 600; color: var(--ink-2); }
 
@@ -241,9 +251,13 @@ ul, ol { padding: 0; list-style: none; }
 
 .heroHead {
   display: grid;
-  grid-template-columns: minmax(0, 1.75fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
   gap: 48px;
-  align-items: end;
+  align-items: stretch;
+}
+.heroCopy {
+  display: flex; flex-direction: column; justify-content: flex-end; gap: 32px;
+  padding-bottom: 6px;
 }
 .hero h1 {
   font: 700 clamp(2.75rem, 5.4vw, 5.25rem)/.94 var(--display);
@@ -251,8 +265,99 @@ ul, ol { padding: 0; list-style: none; }
   max-width: 13ch;
   text-wrap: balance;
 }
-.heroAside { display: grid; gap: 18px; padding-bottom: 8px; }
-.heroAside p { font-size: 1.125rem; color: var(--ink-2); max-width: 36ch; }
+.heroAside { display: grid; justify-items: start; gap: 18px; }
+.heroAside p { font-size: 1.125rem; color: var(--ink-2); max-width: 44ch; }
+
+/* Placa de marca: el frente de un equipo M&E con el logo retroiluminado */
+.plate, .footer {
+  background:
+    var(--screw-dark) no-repeat 16px 14px,
+    var(--screw-dark) no-repeat 16px calc(100% - 14px),
+    var(--screw-dark) no-repeat calc(100% - 16px) 14px,
+    var(--screw-dark) no-repeat calc(100% - 16px) calc(100% - 14px),
+    var(--plate);
+  border-top: 1px solid var(--plate-hi);
+  border-bottom: 1px solid var(--plate-lo);
+  color: #fff;
+}
+.plate {
+  display: flex; flex-direction: column; gap: 16px;
+  padding: 18px 40px 16px;
+}
+.plateBar, .plateFoot {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  min-height: 20px;
+}
+.plateStat, .plateSilk {
+  display: inline-flex; align-items: center; gap: 8px;
+  font: 600 .75rem/1 var(--display);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--plate-silk);
+}
+.plateSilk { text-transform: none; letter-spacing: .04em; font-size: .8125rem; }
+.plateLed {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--plate-led-off);
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .4);
+  transition: background-color .2s;
+}
+.plateLedPwr, .plateLed.is-on { background: var(--led-on); }
+.plateLinks { display: inline-flex; gap: 6px; margin-left: 2px; }
+.plateVents {
+  width: 120px; height: 14px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='14' viewBox='0 0 12 14'%3E%3Crect x='3' y='0' width='6' height='14' rx='3' fill='%230E1014'/%3E%3C/svg%3E") repeat-x left center / 12px 14px;
+}
+
+.lockup {
+  flex: 1;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px;
+  padding: 10px 0 6px;
+}
+.plateMark { width: clamp(150px, 15vw, 204px); height: auto; aspect-ratio: 350 / 336; overflow: visible; }
+.plateMark g, .markFill { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+/* Neón: tubo blanco, halo violeta difuso y la V interior encendida en violeta */
+.markGlow { stroke: var(--violet-lit); stroke-width: 34; }
+.markFill { stroke: var(--violet); stroke-width: 44; }
+.markHoles { fill: var(--violet); }
+.markCore { stroke: #FBF9FF; stroke-width: 30; filter: drop-shadow(0 0 1.5px rgba(255, 255, 255, .85)); }
+.markCore circle { stroke-width: 28; }
+
+.wordmark { display: flex; flex-direction: column; align-items: center; }
+.wmMain {
+  font: 800 clamp(2.6rem, 4vw, 3.5rem)/.9 var(--text);
+  letter-spacing: .01em;
+  color: #fff;
+}
+.wmSub {
+  margin-top: 10px;
+  padding-left: .34em; /* compensa el tracking para centrar */
+  font: 600 clamp(.95rem, 1.25vw, 1.125rem)/1 var(--text);
+  letter-spacing: .34em;
+  text-transform: uppercase;
+  color: #E4E0F5;
+}
+
+/* Encendido: la traza recorre la M, los nodos se energizan, el neón parpadea al prender y se enciende el PWR */
+.markCore path { stroke-dasharray: 1 2; animation: trace 1.1s var(--ease-out) .25s backwards; }
+.markCore path + path { animation-duration: .7s; animation-delay: .6s; }
+.markFill { stroke-dasharray: 1 2; animation: trace .6s var(--ease-out) .95s backwards; }
+.markCore circle, .markHoles circle { transform-box: fill-box; transform-origin: center; animation: node .45s var(--ease-out) backwards; }
+.plateMark .n1 { animation-delay: .15s; }
+.plateMark .n2 { animation-delay: 1s; }
+.plateMark .n3 { animation-delay: 1.15s; }
+.markGlow { animation: ignite 1s linear 1.3s backwards, hum 11s linear 5s infinite; }
+.lockup .wordmark { animation: rise .7s var(--ease-out) .75s backwards; }
+.plateLedPwr { animation: pwr .2s steps(1) 1.4s backwards; }
+@keyframes trace { from { stroke-dashoffset: 1; } }
+@keyframes node { from { transform: scale(0); } }
+@keyframes ignite {
+  0% { opacity: 0; } 8% { opacity: .9; } 12% { opacity: .1; } 20% { opacity: 1; }
+  26% { opacity: .3; } 34%, 100% { opacity: 1; }
+}
+@keyframes hum { 0%, 95% { opacity: 1; } 96% { opacity: .45; } 97% { opacity: 1; } 98% { opacity: .65; } 100% { opacity: 1; } }
+@keyframes rise { from { opacity: 0; transform: translateY(10px); } }
+@keyframes pwr { from { background-color: var(--plate-led-off); } }
 
 .patchWrap { position: relative; margin-top: 40px; }
 
@@ -372,18 +477,46 @@ ul, ol { padding: 0; list-style: none; }
 /* ---------- Marcas (panel ciego) ---------- */
 
 .brands {
-  display: flex; align-items: center; gap: 40px;
-  padding: 26px var(--pad);
+  display: flex; align-items: center; gap: 32px;
+  padding: 22px var(--pad);
   border-top-color: var(--edge-hi);
 }
+.brandsHead { flex: none; display: flex; align-items: center; gap: 12px; }
 .brands h2 { flex: none; color: var(--ink-3); }
-.brandList { display: flex; flex-wrap: wrap; gap: 8px 36px; }
-.brandList li {
-  font: 700 1.5rem/1 var(--display);
-  letter-spacing: .02em;
-  text-transform: uppercase;
-  color: #545965;
+.brandPause {
+  display: inline-grid; place-items: center;
+  width: 36px; height: 36px;
+  background: none; border: 0; border-radius: 3px;
+  color: var(--ink-2); cursor: pointer;
+  box-shadow: inset 0 0 0 1px #B9BDC6;
+  transition: background-color .15s, color .15s;
 }
+.brandPause:hover { background: var(--recess); color: var(--ink); }
+.brandPause svg { width: 16px; height: 16px; }
+.brands.is-paused .brandTrack { animation-play-state: paused; }
+
+/* Carrusel: una ventana hundida en el panel por donde pasan las marcas */
+.brandWindow {
+  flex: 1; min-width: 0;
+  overflow: hidden;
+  background: var(--recess);
+  border-radius: 3px;
+  box-shadow: inset 0 2px 0 rgba(21, 23, 28, .14), 0 1px 0 var(--edge-hi);
+  padding: 12px 0;
+}
+.brandTrack { display: flex; width: max-content; animation: marquee 48s linear infinite; }
+.brandWindow:hover .brandTrack, .brandWindow:focus-within .brandTrack { animation-play-state: paused; }
+.brandList { display: flex; gap: 12px; padding-right: 12px; }
+.brandTile {
+  display: grid; place-items: center;
+  width: 168px; height: 76px;
+  padding: 14px 22px;
+  background: var(--tape);
+  border-radius: 2px;
+  box-shadow: 0 1px 1px rgba(21, 23, 28, .16);
+}
+.brandTile img { max-width: 100%; max-height: 40px; width: auto; height: auto; }
+@keyframes marquee { to { transform: translateX(-50%); } }
 
 /* ---------- Secciones ---------- */
 
@@ -660,12 +793,41 @@ ul, ol { padding: 0; list-style: none; }
 /* ---------- Footer ---------- */
 
 .footer {
-  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 32px;
-  padding: 30px var(--pad);
+  display: grid; gap: 44px;
+  padding: 64px var(--pad) 30px;
 }
-.footer p { color: var(--ink-2); font-size: .9375rem; }
-.footer p a { text-underline-offset: 3px; }
-.footer .legal { color: var(--ink-3); }
+.footTop {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 32px 64px;
+}
+.footBrand { display: inline-flex; align-items: center; gap: 18px; color: #fff; text-decoration: none; }
+.footMark {
+  width: 78px; height: 75px; flex: none;
+  color: #FBF9FF; --mark-core: var(--violet); --mark-hole: var(--violet);
+  filter: drop-shadow(0 0 5px rgba(124, 85, 236, .9)) drop-shadow(0 0 14px rgba(124, 85, 236, .55));
+}
+.footBrand .wordmark { align-items: flex-start; }
+.footBrand .wmMain { font-size: 2.5rem; }
+.footBrand .wmSub { margin-top: 7px; padding-left: 0; font-size: .8125rem; letter-spacing: .3em; }
+.footer .footTag {
+  justify-self: end;
+  max-width: 32ch;
+  font: 600 clamp(1.35rem, 2.3vw, 1.875rem)/1.15 var(--display);
+  color: #fff;
+  text-wrap: balance;
+}
+.footBottom {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 32px;
+  padding-top: 22px;
+  border-top: 1px solid #343842;
+}
+.footer p { color: var(--plate-text); font-size: .9375rem; }
+.footBottom a { color: #fff; text-underline-offset: 3px; text-decoration-color: var(--violet-lit); }
+.footBottom a:hover { text-decoration-thickness: 2px; }
+.footWa { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.footer :focus-visible { outline-color: var(--violet-lit); }
 
 .mobileBar { display: none; }
 
@@ -679,6 +841,14 @@ ul, ol { padding: 0; list-style: none; }
 
 @media (max-width: 1020px) {
   .heroHead, .sectionHead, .about, .contactGrid { grid-template-columns: 1fr; gap: 24px; }
+  .heroHead { gap: 40px; }
+  .plate { order: -1; }
+  .lockup { flex-direction: row; gap: 28px; padding: 6px 0; }
+  .plateMark { width: 128px; }
+  .lockup .wordmark { align-items: flex-start; }
+  .lockup .wmSub { padding-left: 0; }
+  .footTop { grid-template-columns: 1fr; }
+  .footer .footTag { justify-self: start; }
   .contactGrid { gap: 48px; }
   .heroAside p { max-width: 52ch; }
   .links { display: none; }
@@ -695,7 +865,7 @@ ul, ol { padding: 0; list-style: none; }
   .mobileMenu.open { display: flex; }
   .mobileMenu a { padding: 13px 0; font-weight: 600; text-decoration: none; border-bottom: 1px solid var(--line); }
   .mobileMenu a:last-child { border-bottom: 0; }
-  .brands { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .brands { flex-direction: column; align-items: stretch; gap: 14px; }
   .lineBody { grid-template-columns: 1fr; gap: 14px; }
   .unit { grid-template-columns: 60px minmax(0, 1fr); }
   .vents { display: none; }
@@ -739,7 +909,18 @@ ul, ol { padding: 0; list-style: none; }
   .nodes li .node { left: -40px; top: 0; }
   .fields { grid-template-columns: 1fr; }
   .orderActions .btn { flex: 1 1 100%; }
-  .footer { flex-direction: column; align-items: flex-start; padding-bottom: 96px; }
+  .footer { padding-top: 48px; padding-bottom: 96px; background: var(--plate); }
+  .footBottom { flex-direction: column; align-items: flex-start; }
+  .plate { background: var(--plate); padding: 14px var(--pad) 12px; gap: 10px; }
+  .lockup { gap: 18px; }
+  .plateMark { width: 84px; }
+  .wmMain { font-size: 2.25rem; }
+  .wmSub { font-size: .8125rem; letter-spacing: .28em; margin-top: 7px; }
+  .plateVents { width: 72px; }
+  .brandTile { width: 132px; height: 64px; padding: 12px 16px; }
+  .brandTile img { max-height: 32px; }
+  .brandTrack { animation-duration: 38s; }
+  .hero { padding-top: 24px; }
   .mobileBar {
     position: fixed; left: 0; right: 0; bottom: 0; z-index: 60;
     display: grid; grid-template-columns: 1fr 1.4fr; gap: 8px;
@@ -753,6 +934,11 @@ ul, ol { padding: 0; list-style: none; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+  .plate * { animation: none !important; }
+  .brandTrack { animation: none; width: auto; }
+  .brandList { flex-wrap: wrap; justify-content: center; padding: 0 12px; }
+  .brandDup { display: none; }
+  .brandPause { display: none; }
 }
 
 @media (max-width: 760px) {

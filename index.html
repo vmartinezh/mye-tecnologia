@@ -9,21 +9,24 @@
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700;800&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700;800&family=Barlow:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <defs>
-    <symbol id="mark" viewBox="0 0 64 64">
-      <g fill="none" stroke="currentColor" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 45.5V19a8 8 0 0 1 14.2-5.1L32 22"/>
-        <path d="M32 22v10.5"/>
-        <path d="M32 22l5.8-8.1A8 8 0 0 1 52 19v13.5L39.2 50.2"/>
-        <circle cx="12" cy="50.5" r="4.4"/>
-        <circle cx="32" cy="37.5" r="4.4"/>
-        <circle cx="36.4" cy="54" r="4.4"/>
+    <!-- M de circuito, calcada del favicon del cliente (assets/favicon.png): líneas de contorno + V rellena -->
+    <symbol id="mark" viewBox="0 2 350 336">
+      <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M68 47L187 141.5L306 47" stroke-width="44" style="stroke:var(--mark-core,currentColor);opacity:var(--mark-core-op,1)"/>
+        <g stroke="currentColor" stroke-width="30">
+          <path d="M41 196V50A32 32 0 0 1 91 24L187 100L283 24A32 32 0 0 1 333 50V192L223.4 279.1"/><path d="M41 66L165.2 165.5"/><path d="M333 66L208.8 165.5"/>
+          <circle cx="41" cy="224" r="26" stroke-width="28"/><circle cx="187" cy="183" r="26" stroke-width="28"/><circle cx="202" cy="297" r="26" stroke-width="28"/>
+        </g>
+        <g stroke="none" style="fill:var(--mark-hole,currentColor)">
+          <circle cx="41" cy="224" r="12"/><circle cx="187" cy="183" r="12"/><circle cx="202" cy="297" r="12"/>
+        </g>
       </g>
     </symbol>
     <symbol id="i-wa" viewBox="0 0 24 24">
@@ -50,6 +53,8 @@
     <symbol id="i-arrow" viewBox="0 0 24 24">
       <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></g>
     </symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><g fill="currentColor"><rect x="6.5" y="5" width="3.5" height="14" rx="1"/><rect x="14" y="5" width="3.5" height="14" rx="1"/></g></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path fill="currentColor" d="M7.5 5.2v13.6a.8.8 0 0 0 1.2.7l10.6-6.8a.8.8 0 0 0 0-1.4L8.7 4.5a.8.8 0 0 0-1.2.7z"/></symbol>
     <symbol id="i-menu" viewBox="0 0 24 24">
       <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></g>
     </symbol>
@@ -92,10 +97,53 @@
 
     <section class="hero" aria-labelledby="heroTitle">
       <div class="heroHead">
-        <h1 id="heroTitle">Soluciones tecnológicas para tu empresa.</h1>
-        <div class="heroAside">
-          <p>Equipos, telecomunicaciones y respaldo de marcas líderes. Conecta en el panel lo que necesitas y te armamos la cotización.</p>
-          <a class="textLink" href="#contacto">Prefiero contarles mi proyecto <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <div class="heroCopy">
+          <h1 id="heroTitle">Soluciones tecnológicas para tu empresa.</h1>
+          <div class="heroAside">
+            <p>Equipos, telecomunicaciones y respaldo de marcas líderes. Conecta en el panel lo que necesitas y te armamos la cotización.</p>
+            <a class="textLink" href="#contacto">Prefiero contarles mi proyecto <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          </div>
+        </div>
+
+        <div class="plate" role="img" aria-label="M&amp;E Tecnología">
+          <div class="plateBar" aria-hidden="true">
+            <span class="plateStat"><span class="plateLed plateLedPwr"></span>PWR</span>
+            <span class="plateStat">Link
+              <span class="plateLinks" id="plateLinks">
+                <span class="plateLed" data-cat="equipos"></span><span class="plateLed" data-cat="perifericos"></span><span class="plateLed" data-cat="networking"></span><span class="plateLed" data-cat="telecom"></span><span class="plateLed" data-cat="energia"></span><span class="plateLed" data-cat="empresas"></span><span class="plateLed" data-cat="impresion"></span>
+              </span>
+            </span>
+          </div>
+          <div class="lockup" aria-hidden="true">
+            <svg class="plateMark" viewBox="0 2 350 336">
+              <defs>
+                <filter id="neon" x="-40%" y="-40%" width="180%" height="180%">
+                  <feGaussianBlur stdDeviation="6" result="near"/>
+                  <feGaussianBlur in="SourceGraphic" stdDeviation="20" result="far"/>
+                  <feMerge><feMergeNode in="far"/><feMergeNode in="near"/></feMerge>
+                </filter>
+              </defs>
+              <g class="markGlow" filter="url(#neon)">
+                <path d="M41 196V50A32 32 0 0 1 91 24L187 100L283 24A32 32 0 0 1 333 50V192L223.4 279.1"/><path d="M41 66L165.2 165.5"/><path d="M333 66L208.8 165.5"/>
+                <circle class="n1" cx="41" cy="224" r="26"/><circle class="n2" cx="187" cy="183" r="26"/><circle class="n3" cx="202" cy="297" r="26"/>
+              </g>
+              <path class="markFill" d="M68 47L187 141.5L306 47" pathLength="1"/>
+              <g class="markHoles">
+                <circle class="n1" cx="41" cy="224" r="13"/><circle class="n2" cx="187" cy="183" r="13"/><circle class="n3" cx="202" cy="297" r="13"/>
+              </g>
+              <g class="markCore">
+                <path d="M41 196V50A32 32 0 0 1 91 24L187 100L283 24A32 32 0 0 1 333 50V192L223.4 279.1" pathLength="1"/>
+                <path d="M41 66L165.2 165.5" pathLength="1"/>
+                <path d="M333 66L208.8 165.5" pathLength="1"/>
+                <circle class="n1" cx="41" cy="224" r="26"/><circle class="n2" cx="187" cy="183" r="26"/><circle class="n3" cx="202" cy="297" r="26"/>
+              </g>
+            </svg>
+            <p class="wordmark"><span class="wmMain">M&amp;E</span><span class="wmSub">Tecnología</span></p>
+          </div>
+          <div class="plateFoot" aria-hidden="true">
+            <span class="plateVents"></span>
+            <span class="plateSilk">myetecnologia.cl</span>
+          </div>
         </div>
       </div>
 
@@ -135,10 +183,16 @@
     </section>
 
     <section class="brands panel" aria-labelledby="brandsTitle">
-      <h2 class="silk" id="brandsTitle">Trabajamos con</h2>
-      <ul class="brandList">
-        <li>HP</li><li>Lenovo</li><li>Dell</li><li>Asus</li><li>Microsoft</li><li>APC</li><li>Forza</li><li>Jabra</li><li>Logitech</li>
-      </ul>
+      <div class="brandsHead">
+        <h2 class="silk" id="brandsTitle">Trabajamos con</h2>
+        <button class="brandPause" id="brandPause" type="button" aria-pressed="false" aria-label="Pausar carrusel de marcas"><svg aria-hidden="true"><use href="#i-pause"/></svg></button>
+      </div>
+      <div class="brandWindow">
+        <div class="brandTrack">
+          <ul class="brandList"><li class="brandTile"><img src="assets/marcas/hp.svg" alt="HP" loading="lazy" decoding="async"></li><li class="brandTile"><img src="assets/marcas/lenovo.svg" alt="Lenovo" loading="lazy" decoding="async"></li><li class="brandTile"><img src="assets/marcas/dell.svg" alt="Dell" loading="lazy" decoding="async"></li><li class="brandTile"><img src="assets/marcas/asus.svg" alt="Asus" loading="lazy" decoding="async"></li><li class="brandTile"><img src="assets/marcas/microsoft.svg" alt="Microsoft" loading="lazy" decoding="async"></li><li class="brandTile"><img src="assets/marcas/apc.svg" alt="APC" loading="lazy" decoding="async"></li><li class="brandTile"><img src="assets/marcas/forza.svg" alt="Forza" loading="lazy" decoding="async"></li><li class="brandTile"><img src="assets/marcas/jabra.svg" alt="Jabra" loading="lazy" decoding="async"></li><li class="brandTile"><img src="assets/marcas/logitech.svg" alt="Logitech" loading="lazy" decoding="async"></li><li class="brandTile"><img src="assets/marcas/linksys.svg" alt="Linksys" loading="lazy" decoding="async"></li><li class="brandTile"><img src="assets/marcas/tplink.svg" alt="TP-Link" loading="lazy" decoding="async"></li><li class="brandTile"><img src="assets/marcas/epson.svg" alt="Epson" loading="lazy" decoding="async"></li><li class="brandTile"><img src="assets/marcas/brother.svg" alt="Brother" loading="lazy" decoding="async"></li></ul>
+          <ul class="brandList brandDup" aria-hidden="true"><li class="brandTile"><img src="assets/marcas/hp.svg" alt="" loading="lazy" decoding="async"></li><li class="brandTile"><img src="assets/marcas/lenovo.svg" alt="" loading="lazy" decoding="async"></li><li class="brandTile"><img src="assets/marcas/dell.svg" alt="" loading="lazy" decoding="async"></li><li class="brandTile"><img src="assets/marcas/asus.svg" alt="" loading="lazy" decoding="async"></li><li class="brandTile"><img src="assets/marcas/microsoft.svg" alt="" loading="lazy" decoding="async"></li><li class="brandTile"><img src="assets/marcas/apc.svg" alt="" loading="lazy" decoding="async"></li><li class="brandTile"><img src="assets/marcas/forza.svg" alt="" loading="lazy" decoding="async"></li><li class="brandTile"><img src="assets/marcas/jabra.svg" alt="" loading="lazy" decoding="async"></li><li class="brandTile"><img src="assets/marcas/logitech.svg" alt="" loading="lazy" decoding="async"></li><li class="brandTile"><img src="assets/marcas/linksys.svg" alt="" loading="lazy" decoding="async"></li><li class="brandTile"><img src="assets/marcas/tplink.svg" alt="" loading="lazy" decoding="async"></li><li class="brandTile"><img src="assets/marcas/epson.svg" alt="" loading="lazy" decoding="async"></li><li class="brandTile"><img src="assets/marcas/brother.svg" alt="" loading="lazy" decoding="async"></li></ul>
+        </div>
+      </div>
     </section>
 
     <section class="section" id="servicios" aria-labelledby="servTitle">
@@ -332,13 +386,18 @@
 
   </main>
 
-  <footer class="footer panel">
-    <a class="brand" href="#top" aria-label="Volver al inicio">
-      <svg class="brandMark" aria-hidden="true"><use href="#mark"/></svg>
-      <span class="brandName">M&amp;E <span>Tecnología</span></span>
-    </a>
-    <p>Despachos a todo Chile vía Starken y Chilexpress · <a href="mailto:contacto@myetecnologia.cl">contacto@myetecnologia.cl</a></p>
-    <p class="legal">© <span id="year">2026</span> M&amp;E Tecnología SpA</p>
+  <footer class="footer">
+    <div class="footTop">
+      <a class="footBrand" href="#top" aria-label="M&amp;E Tecnología, volver al inicio">
+        <svg class="footMark" aria-hidden="true"><use href="#mark"/></svg>
+        <span class="wordmark" aria-hidden="true"><span class="wmMain">M&amp;E</span><span class="wmSub">Tecnología</span></span>
+      </a>
+      <p class="footTag">Impulsamos tu empresa con tecnología, entregando soluciones ágiles, confiables y adaptadas a cada necesidad.</p>
+    </div>
+    <div class="footBottom">
+      <p>Despachos a todo Chile vía Starken y Chilexpress · <a href="mailto:contacto@myetecnologia.cl">contacto@myetecnologia.cl</a> · <a class="footWa" href="https://wa.me/56994895613" target="_blank" rel="noopener">+56 9 9489 5613</a></p>
+      <p class="legal">© <span id="year">2026</span> M&amp;E Tecnología SpA</p>
+    </div>
   </footer>
 
 </div>
