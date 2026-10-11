@@ -3,11 +3,10 @@
 DirectoryIndex index.html
 Options -Indexes
 
-# Forzar HTTPS: activar SOLO cuando el certificado SSL del dominio esté funcionando
-# (quitar el "#" de las 3 líneas siguientes).
-# RewriteEngine On
-# RewriteCond %{HTTPS} off
-# RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# Forzar HTTPS (el certificado SSL del dominio ya está activo)
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
 <IfModule mod_mime.c>
   AddType image/svg+xml .svg
