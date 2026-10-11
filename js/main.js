@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll(".unit[data-cat]").forEach(function (u) {
       u.classList.toggle("is-on", selected.indexOf(u.dataset.cat) !== -1);
     });
-    document.querySelectorAll("#plateLinks [data-cat]").forEach(function (led) {
+    document.querySelectorAll(".plateLinks [data-cat]").forEach(function (led) {
       led.classList.toggle("is-on", selected.indexOf(led.dataset.cat) !== -1);
     });
     catChecks.querySelectorAll(".catChip").forEach(function (c) {

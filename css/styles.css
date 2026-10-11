@@ -327,6 +327,11 @@ ul, ol { padding: 0; list-style: none; }
   transition: background-color .2s;
 }
 .plateLedPwr, .plateLed.is-on { background: var(--led-on); }
+/* Easter egg: cada puerto conectado enciende su LED arriba y abajo de la placa; parpadea al enlazar */
+.plateLed.is-on { box-shadow: 0 0 6px 1px rgba(31, 168, 85, .75); animation: linkUp .45s steps(1); }
+.plateFoot .plateSilk { gap: 14px; }
+.plateFoot .plateLed { width: 8px; height: 8px; }
+@keyframes linkUp { 0% { background: var(--plate-led-off); box-shadow: none; } 33% { background: var(--led-on); } 66% { background: var(--plate-led-off); box-shadow: none; } }
 .plateLinks { display: inline-flex; gap: 6px; margin-left: 2px; }
 .plateVents {
   width: 120px; height: 14px;
