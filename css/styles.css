@@ -46,6 +46,8 @@
   --plate-text: #B8BCC5;
   --plate-led-off: #3B3F48;
   --violet-lit: #7C55EC;
+  --trace-cyan: #5BC8F5;
+  --trace-amber: #F29A3A;
   --screw-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14'%3E%3Ccircle cx='7' cy='7' r='5.6' fill='%232E323A' stroke='%23474C56'/%3E%3Cpath d='M4.4 7h5.2M7 4.4v5.2' stroke='%235C616C' stroke-width='1.4' stroke-linecap='round'/%3E%3C/svg%3E");
 
   --u: 48px;
@@ -247,29 +249,55 @@ ul, ol { padding: 0; list-style: none; }
 
 /* ---------- Hero ---------- */
 
-.hero { padding: 52px var(--pad) 56px; }
+.hero { padding: 0 var(--pad) 56px; }
 
+/* Primera vista: una ventana al interior del procesador, montada en el rack.
+   El fondo es el del logo original del cliente (espejado para sacar el logo incrustado);
+   las trazas llevan pulsos de luz hacia la M, como en la presentación de un chip. */
 .heroHead {
+  position: relative; isolation: isolate; overflow: hidden;
+  display: flex; flex-direction: column; gap: 20px;
+  min-height: 620px;
+  margin: 0 calc(-1 * var(--pad));
+  padding: 18px var(--pad) 16px;
+  background:
+    var(--screw-dark) no-repeat 16px 14px,
+    var(--screw-dark) no-repeat 16px calc(100% - 14px),
+    var(--screw-dark) no-repeat calc(100% - 16px) 14px,
+    var(--screw-dark) no-repeat calc(100% - 16px) calc(100% - 14px),
+    linear-gradient(90deg, rgba(10, 11, 16, .93) 0%, rgba(10, 11, 16, .82) 34%, rgba(10, 11, 16, .32) 58%, rgba(10, 11, 16, .12) 100%),
+    linear-gradient(180deg, rgba(10, 11, 16, .6) 0%, rgba(10, 11, 16, 0) 18%, rgba(10, 11, 16, 0) 72%, rgba(10, 11, 16, .75) 100%),
+    url("../assets/hero-procesador.jpg") -4% 47% / 150% auto no-repeat,
+    var(--plate);
+  border-bottom: 1px solid var(--plate-lo);
+  color: #fff;
+}
+.heroStage {
+  flex: 1;
   display: grid;
   grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
   gap: 48px;
-  align-items: stretch;
+  align-items: center;
+  padding: 24px 0;
 }
 .heroCopy {
-  display: flex; flex-direction: column; justify-content: flex-end; gap: 32px;
-  padding-bottom: 6px;
+  position: relative; z-index: 1;
+  display: flex; flex-direction: column; gap: 32px;
 }
 .hero h1 {
   font: 700 clamp(2.75rem, 5.4vw, 5.25rem)/.94 var(--display);
   letter-spacing: -.02em;
   max-width: 13ch;
   text-wrap: balance;
+  color: #fff;
 }
 .heroAside { display: grid; justify-items: start; gap: 18px; }
-.heroAside p { font-size: 1.125rem; color: var(--ink-2); max-width: 44ch; }
+.heroAside p { font-size: 1.125rem; color: #D3D6DE; max-width: 44ch; }
+.heroHead .textLink { color: #fff; text-decoration-color: var(--violet-lit); }
+.heroHead :focus-visible { outline-color: var(--violet-lit); }
 
-/* Placa de marca: el frente de un equipo M&E con el logo retroiluminado */
-.plate, .footer {
+/* Placa de marca: frente anodizado (hero y footer) */
+.footer {
   background:
     var(--screw-dark) no-repeat 16px 14px,
     var(--screw-dark) no-repeat 16px calc(100% - 14px),
@@ -279,10 +307,6 @@ ul, ol { padding: 0; list-style: none; }
   border-top: 1px solid var(--plate-hi);
   border-bottom: 1px solid var(--plate-lo);
   color: #fff;
-}
-.plate {
-  display: flex; flex-direction: column; gap: 16px;
-  padding: 18px 40px 16px;
 }
 .plateBar, .plateFoot {
   display: flex; align-items: center; justify-content: space-between; gap: 16px;
@@ -310,11 +334,31 @@ ul, ol { padding: 0; list-style: none; }
 }
 
 .lockup {
-  flex: 1;
-  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px;
-  padding: 10px 0 6px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px;
 }
-.plateMark { width: clamp(150px, 15vw, 204px); height: auto; aspect-ratio: 350 / 336; overflow: visible; }
+.markWrap { --mw: clamp(150px, 15vw, 204px); position: relative; isolation: isolate; width: var(--mw); }
+.plateMark { display: block; width: 100%; height: auto; aspect-ratio: 350 / 336; overflow: visible; }
+
+/* Trazas del chip: base tenue, pads en las puntas y pulsos que avanzan hacia la M */
+.traces {
+  position: absolute; left: 50%; top: 50%; z-index: -1;
+  width: calc(var(--mw) * 7.843); height: calc(var(--mw) * 4.902);
+  transform: translate(-50%, -50%);
+  overflow: visible; pointer-events: none;
+}
+.traces path, .traces circle { fill: none; vector-effect: non-scaling-stroke; stroke-linecap: round; stroke-linejoin: round; }
+.traceBase { stroke: rgba(124, 85, 236, .34); stroke-width: 1.5; }
+.tracePads { stroke: rgba(124, 85, 236, .55); stroke-width: 1.5; }
+.pulse {
+  stroke: currentColor; stroke-width: 2.5;
+  stroke-dasharray: .07 1.3; stroke-dashoffset: .1;
+  filter: drop-shadow(0 0 4px currentColor);
+  animation: flow var(--t) cubic-bezier(.55, 0, .85, .45) var(--d) infinite;
+}
+.pv { color: var(--violet-lit); }
+.pc { color: var(--trace-cyan); }
+.pa { color: var(--trace-amber); }
+@keyframes flow { 0% { stroke-dashoffset: .1; } 60%, 100% { stroke-dashoffset: -1.05; } }
 .plateMark g, .markFill { fill: none; stroke-linecap: round; stroke-linejoin: round; }
 /* Neón: tubo blanco, halo violeta difuso y la V interior encendida en violeta */
 .markGlow { stroke: var(--violet-lit); stroke-width: 34; }
@@ -831,6 +875,17 @@ ul, ol { padding: 0; list-style: none; }
 
 .mobileBar { display: none; }
 
+/* Textos largos justificados, solo donde la columna es ancha (en columnas angostas
+   y en el teléfono el justificado abre ríos de espacio entre palabras) */
+@media (min-width: 761px) {
+  .sectionHead p, .unit p, .about p, .mv dd, .contactSide > p {
+    text-align: justify;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    text-wrap: pretty;
+  }
+}
+
 /* ---------- Responsive ---------- */
 
 @media (max-width: 1180px) {
@@ -841,10 +896,17 @@ ul, ol { padding: 0; list-style: none; }
 
 @media (max-width: 1020px) {
   .heroHead, .sectionHead, .about, .contactGrid { grid-template-columns: 1fr; gap: 24px; }
-  .heroHead { gap: 40px; }
-  .plate { order: -1; }
-  .lockup { flex-direction: row; gap: 28px; padding: 6px 0; }
-  .plateMark { width: 128px; }
+  .heroHead {
+    min-height: 0;
+    background:
+      linear-gradient(rgba(10, 11, 16, .7), rgba(10, 11, 16, .7)),
+      linear-gradient(180deg, rgba(10, 11, 16, .4) 0%, rgba(10, 11, 16, 0) 30%, rgba(10, 11, 16, .6) 100%),
+      url("../assets/hero-procesador.jpg") center 40% / cover no-repeat,
+      var(--plate);
+  }
+  .heroStage { grid-template-columns: 1fr; gap: 40px; padding: 28px 0 20px; }
+  .lockup { order: -1; flex-direction: row; gap: 28px; padding: 18px 0; }
+  .markWrap { --mw: 128px; }
   .lockup .wordmark { align-items: flex-start; }
   .lockup .wmSub { padding-left: 0; }
   .footTop { grid-template-columns: 1fr; }
@@ -880,7 +942,6 @@ ul, ol { padding: 0; list-style: none; }
   .navActions { gap: 4px; }
   .navActions .btnSm { display: none; }
   .navWa { width: 44px; height: 44px; justify-content: center; }
-  .hero { padding-top: 44px; }
   .hero h1 { font-size: clamp(2.5rem, 11.5vw, 3.5rem); }
   .patchWrap { margin-top: 32px; }
   .patchBar { flex-direction: column; gap: 4px; }
@@ -911,16 +972,16 @@ ul, ol { padding: 0; list-style: none; }
   .orderActions .btn { flex: 1 1 100%; }
   .footer { padding-top: 48px; padding-bottom: 96px; background: var(--plate); }
   .footBottom { flex-direction: column; align-items: flex-start; }
-  .plate { background: var(--plate); padding: 14px var(--pad) 12px; gap: 10px; }
-  .lockup { gap: 18px; }
-  .plateMark { width: 84px; }
+  .heroHead { gap: 10px; padding-top: 14px; padding-bottom: 12px; }
+  .heroStage { gap: 28px; padding: 16px 0 12px; }
+  .lockup { gap: 18px; padding: 14px 0; }
+  .markWrap { --mw: 84px; }
   .wmMain { font-size: 2.25rem; }
   .wmSub { font-size: .8125rem; letter-spacing: .28em; margin-top: 7px; }
   .plateVents { width: 72px; }
   .brandTile { width: 132px; height: 64px; padding: 12px 16px; }
   .brandTile img { max-height: 32px; }
   .brandTrack { animation-duration: 38s; }
-  .hero { padding-top: 24px; }
   .mobileBar {
     position: fixed; left: 0; right: 0; bottom: 0; z-index: 60;
     display: grid; grid-template-columns: 1fr 1.4fr; gap: 8px;
@@ -934,7 +995,8 @@ ul, ol { padding: 0; list-style: none; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
-  .plate * { animation: none !important; }
+  .heroHead * { animation: none !important; }
+  .tracePulses { display: none; }
   .brandTrack { animation: none; width: auto; }
   .brandList { flex-wrap: wrap; justify-content: center; padding: 0 12px; }
   .brandDup { display: none; }
