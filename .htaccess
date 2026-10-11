@@ -1,0 +1,30 @@
+# M&E Tecnología: configuración para hosting Apache (cPanel). Si el hosting no es Apache, este archivo se ignora.
+
+DirectoryIndex index.html
+Options -Indexes
+
+# Forzar HTTPS: activar SOLO cuando el certificado SSL del dominio esté funcionando
+# (quitar el "#" de las 3 líneas siguientes).
+# RewriteEngine On
+# RewriteCond %{HTTPS} off
+# RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+<IfModule mod_mime.c>
+  AddType image/svg+xml .svg
+  AddCharset utf-8 .html .css .js .txt .xml .svg
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript text/javascript image/svg+xml text/plain application/xml
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault "access plus 1 hour"
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType text/css "access plus 1 week"
+  ExpiresByType application/javascript "access plus 1 week"
+  ExpiresByType image/jpeg "access plus 1 month"
+  ExpiresByType image/png "access plus 1 month"
+  ExpiresByType image/svg+xml "access plus 1 month"
+</IfModule>

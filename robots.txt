@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://myetecnologia.cl/sitemap.xml
