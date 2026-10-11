@@ -8,9 +8,14 @@ RewriteEngine On
 RewriteCond %{HTTPS} off
 RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
+# Dirección oficial sin "www" (evita contenido duplicado en Google)
+RewriteCond %{HTTP_HOST} ^www.myetecnologia.cl$ [NC]
+RewriteRule ^ https://myetecnologia.cl%{REQUEST_URI} [L,R=301]
+
 <IfModule mod_mime.c>
   AddType image/svg+xml .svg
-  AddCharset utf-8 .html .css .js .txt .xml .svg
+  AddCharset utf-8 .html .css .js .txt .xml .svg .webmanifest
+  AddType application/manifest+json .webmanifest
 </IfModule>
 
 <IfModule mod_deflate.c>
@@ -26,4 +31,5 @@ RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
   ExpiresByType image/jpeg "access plus 1 month"
   ExpiresByType image/png "access plus 1 month"
   ExpiresByType image/svg+xml "access plus 1 month"
+  ExpiresByType application/manifest+json "access plus 1 week"
 </IfModule>

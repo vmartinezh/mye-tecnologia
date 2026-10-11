@@ -35,7 +35,6 @@ jobs:
             **/.git*
             **/.git*/**
             .github/**
-            .nojekyll
             publicar/**
             assets/logo-me-tecnologia.jpeg
 
