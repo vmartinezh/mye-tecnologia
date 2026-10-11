@@ -1,0 +1,44 @@
+# Publica el sitio en el hosting (megacloud.cl) cada vez que se hace push a main.
+# Requiere 3 secretos en GitHub (Settings > Secrets and variables > Actions):
+#   FTP_SERVER, FTP_USERNAME, FTP_PASSWORD  (opcional: FTP_DIR, por defecto public_html/)
+# Mientras no existan, el paso de publicación se omite sin marcar error.
+name: Publicar en hosting
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: publicar-hosting
+  cancel-in-progress: false
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    env:
+      FTP_SERVER: ${{ secrets.FTP_SERVER }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Subir archivos por FTP
+        if: env.FTP_SERVER != ''
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          security: loose
+          server-dir: ${{ secrets.FTP_DIR || 'public_html/' }}
+          exclude: |
+            **/.git*
+            **/.git*/**
+            .github/**
+            .nojekyll
+            publicar/**
+            assets/logo-me-tecnologia.jpeg
+
+      - name: Aviso si faltan los secretos
+        if: env.FTP_SERVER == ''
+        run: echo "::notice::Faltan los secretos FTP; no se publicó en el hosting."
